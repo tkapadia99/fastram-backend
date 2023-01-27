@@ -1,9 +1,3 @@
-# FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
-# COPY requirements.txt /tmp
-# RUN pip install -r /tmp/requirements.txt
-# WORKDIR /app
-# COPY ./app .
-
 FROM python:3.8-alpine
 
 WORKDIR /myapp

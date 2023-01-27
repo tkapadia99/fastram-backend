@@ -10,3 +10,7 @@ def read_root():
         List -- Hello World
     """
     return {"Hello": "World"}
+
+@app.get("/tyler")
+def tylers_route():
+    return "Tyler was here"
