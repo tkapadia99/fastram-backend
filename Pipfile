@@ -8,6 +8,10 @@ verify_ssl = true
 [packages]
 fastapi = "*"
 uvicorn = "*"
+azure-cosmos = "*"
+pandas = "*"
+python-dotenv = "*"
+websockets = "*"
 
 [requires]
 python_version = "3.8"
