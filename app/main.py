@@ -1,9 +1,22 @@
+from typing import List
 from fastapi import FastAPI
 import os
 from dotenv import load_dotenv
 from azure.cosmos import CosmosClient
+from schema import recordOut
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 load_dotenv()
 
@@ -22,25 +35,21 @@ def root():
 def get_all_exercise_types():
     
     types = list(strong.query_items(query="SELECT DISTINCT VALUE c[@field] from c",
-        parameters=[{"name":"@field", "value": "Exercise Name"}], enable_cross_partition_query=True))
+        parameters=[{"name":"@field", "value": "exercise_name"}], enable_cross_partition_query=True))
 
     return types
 
-@app.get("/records")
+@app.get("/records", response_model=List[recordOut])
 def get_records():
 
     items = list(strong.query_items(query="select * from strongdata", enable_cross_partition_query=True))
 
     return items
 
-@app.get("/records/{exercise}")
+@app.get("/records/{exercise}", response_model=List[recordOut])
 def get_records_by_exercise_type(exercise: str):
 
     items = list(strong.query_items(query="select * from strongdata where strongdata[@field] = @exname",
-        parameters=[{"name": "@exname", "value": exercise}, {"name":"@field", "value": "Exercise Name"}], enable_cross_partition_query=True))
+        parameters=[{"name": "@exname", "value": exercise}, {"name":"@field", "value": "exercise_name"}], enable_cross_partition_query=True))
 
     return items
-
-@app.get("/tyler")
-def tylers_route():
-    return "Tyler was here"

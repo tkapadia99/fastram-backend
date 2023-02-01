@@ -9,9 +9,13 @@ verify_ssl = true
 fastapi = "*"
 uvicorn = "*"
 azure-cosmos = "*"
-pandas = "*"
 python-dotenv = "*"
 websockets = "*"
+fastapi-camelcase = "*"
+numpy = "*"
+python-dateutil = "*"
+pytz = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.8"
