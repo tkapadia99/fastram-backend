@@ -1,5 +1,5 @@
 import datetime
-from typing import Optional
+from typing import List, Optional
 from pydantic import BaseModel
 from fastapi_camelcase import CamelModel
 
@@ -18,3 +18,8 @@ class recordOut(CamelModel):
     notes: Optional[str]
     workout_notes: Optional[str]
     rpe: Optional[str]
+
+class daily_record(CamelModel):
+    dates: List[datetime.datetime]
+    best_weight: List[int]
+    best_reps: Optional[List[int]]
